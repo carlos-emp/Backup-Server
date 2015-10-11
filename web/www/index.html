@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<!--<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />           -->
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="stylesheet" href="lib/onsen/css/onsenui.css"/>
+		<link rel="stylesheet" href="styles/onsen-css-components.css"/>
+		<script src="lib/onsen/js/angular/angular.js"></script>
+		<script src="lib/onsen/js/onsenui.js"></script>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script src="funcion.js"></script>
+		<link rel="stylesheet" href="tabla.css"/>
+
+	</head>
+	<body ng-controller="AppController" class="custom-azul2">
+
+		<ons-sliding-menu
+		menu-page="menu.html" main-page="page1.html" side="left"
+		var="menu" type="reveal" max-slide-distance="260px" swipable="true"  class="custom-azul2"></ons-sliding-menu>
+
+		<ons-template id="menu.html" class="custom-azul">
+			<ons-page modifier="menu-page" class="custom-azul2">
+				<ons-toolbar modifier="transparent" class="custom-azul"></ons-toolbar>
+
+				<ons-list class="menu-list custom-azul2">
+					<ons-list-item class="menu-item " ng-click="menu.setMainPage('page9.html', {closeMenu: true})">
+						<div class="cajita" style="height: 100px">
+							<img src="img/datacenter.png"  style="height: 100%; width: 100%;"/>
+						</div>
+					</ons-list-item>
+
+					<ons-list-item class="menu-item custom-icon" ng-click="menu.setMainPage('page1.html', {closeMenu: true})">
+						<ons-icon icon="ion-home custom-icon"></ons-icon>
+						Inicio
+					</ons-list-item>
+
+					<ons-list-item class="menu-item custom-icon" ng-click="menu.setMainPage('page2.html', {closeMenu: true})">
+						<ons-icon icon="fa-plus custom-icon"></ons-icon>
+						Nuevo
+					</ons-list-item>
+
+					<ons-list-item class="menu-item custom-icon" ng-click="menu.setMainPage('page7.html', {closeMenu: true})">
+						<ons-icon icon="icon ion-ios7-person"></ons-icon>
+						Perfil
+					</ons-list-item>
+				</ons-list>
+
+				<br>
+
+				<ons-list class="bottom-menu-list custom-azul2">
+					<ons-list-item class="bottom-menu-item custom-icon" ng-click="menu.setMainPage('page5.html', {closeMenu: true})">
+						<ons-icon icon="icon ion-edit"></ons-icon>
+						Editar
+					</ons-list-item>
+
+					<ons-list-item class="bottom-menu-item custom-icon" ng-click="menu.setMainPage('page8.html', {closeMenu: true})">
+						<ons-icon icon="icon ion-android-settings"></ons-icon>
+						Config
+					</ons-list-item>
+					<ons-list-item class="bottom-menu-item custom-icon" ng-click="menu.setMainPage('page4.html', {closeMenu: true})">
+						<ons-icon icon="icon ion-help"></ons-icon>
+						Ayuda
+					</ons-list-item>
+
+					<ons-list-item class="bottom-menu-item custom-icon" ng-click="menu.setMainPage('page9.html', {closeMenu: true})">
+						<ons-icon icon="icon ion-android-information"></ons-icon>
+						Acerca de
+					</ons-list-item>
+				</ons-list>
+			</ons-page>
+		</ons-template>
+		<ons-template id="page1.html">
+			<ons-navigator animation="slide" var="app.navi">
+
+				<ons-page>
+					<ons-toolbar>
+						<div class="left">
+							<ons-toolbar-button ng-click="menu.toggle()">
+								<ons-icon icon="ion-navicon custom-icon" size="28px" fixed-width="false"></ons-icon>
+							</ons-toolbar-button>
+						</div>
+						<div class="center">
+							Inicio/Lista de Tickets
+						</div>
+						<div class="right">
+							<ons-toolbar-button style="margin-right: 3px;" modifier="light" ng-click="app.navi.pushPage('page3.html');">
+								<ons-icon icon="icon ion-bookmark custom-icon"></ons-icon>
+							</ons-toolbar-button>
+							<ons-toolbar-button style="margin-right: 3px;" modifier="light" ng-click="app.navi.pushPage('page5.html');">
+								<ons-icon icon="icon ion-edit custom-icon"></ons-icon>
+							</ons-toolbar-button>
+						</div>
+					</ons-toolbar>
+					<ons-modal var="modal">
+						<ons-icon icon="refresh" spin="true"></ons-icon>
+						<br>
+						<br>
+						Cargando informacion, por favor espere ...
+					</ons-modal>
+					
+					<div id="cod"></div>
+
+					<div ng-controller="mainController">
+						<hr>
+						{{greeting}}
+					</div>
+					<ons-bottom-toolbar>
+						<ons-list ng-controller="NotificationController">
+
+							<ons-list-item ng-click="alert()" modifier="tappable" class="custom-azul2">
+								<div class='center'>
+									App helpDesk Intellibanks
+								</div>
+							</ons-list-item>
+						</ons-list>
+					</ons-bottom-toolbar>
+				</ons-page>
+			</ons-navigator>
+		</ons-template>
+		<ons-template id="page2.html">
+			<ons-page>
+				<ons-toolbar>
+					<div class="left">
+						<ons-toolbar-button ng-click="menu.toggle()">
+							<ons-icon icon="ion-navicon custom-icon" size="28px" fixed-width="false"></ons-icon>
+						</ons-toolbar-button>
+					</div>
+
+					<div class="center">
+						Nuevo Ticket
+					</div>
+				</ons-toolbar>
+
+				<ons-modal var="modal">
+					<ons-icon icon="ion-loading-c" spin="true"></ons-icon>
+					<br>
+					<br>
+					Cargando informacion, por favor espere ...
+				</ons-modal>
+				<ons-row style="margin-top: 10px;">
+					<ons-col align="center">
+						<div ng-controller="newController">
+							<form method="post" id="formularioB">
+
+								<table class="container">
+
+									<tbody>
+										<tr>
+											<th>Problema: </th><th>
+											<input type="text" id="problema" name="problema" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Descripcion: </th><th><textarea id="descripcion" name="descripcion" rows="4" cols="20" class="textarea"></textarea></th>
+										</tr>
+										<tr>
+											<th>Autor: </th><th>
+											<input type="text" id="autor" name="autor" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Compania: </th><th>
+											<input type="text" id="compania" name="compania" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Mail: </th><th>
+											<input type="email" id="mail" name="mail" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Telefono </th><th>
+											<input type="tel" id="tel" name="tel" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Tipo: </th>
+											<th>
+											<p>
+												<select id="tipo" name="tipo"></select>
+											</p></th>
+										</tr>
+										<tr>
+											<th>Area: </th>
+											<th>
+											<p>
+												<select id="area" name="area"></select>
+											</p></th>
+										</tr>
+										<tr>
+											<th>Encargado: </th>
+											<th>
+											<p>
+												<select id="encargado" name="encargado"></select>
+											</p></th>
+										</tr>
+										<tr>
+											<th>Estado: </th>
+											<th>
+											<p>
+												<input type="range" class="range" name="porcentaje">
+											</p></th>
+										</tr>
+										<tr>
+											<th>Fecha: </th><th>
+											<p>
+												<input type="date" id="datepicker" name="fecha" class="text-input">
+											</p></th>
+										</tr>
+										<tr>
+											<th>solucion: </th><th><textarea id="solucion" name="solucion" rows="4" cols="20" class="textarea"></textarea></th>
+										</tr>
+									</tbody>
+								</table>
+								<ons-button class="custom-azul" modifier="light" ng-click="menu.toggleMenu()">
+									Menu
+								</ons-button>
+								<ons-button class="custom-verde" modifier="light" ng-click="testes();" ng-controller="sent">
+									Enviar
+								</ons-button>
+							</form>
+						</div>
+					</ons-col>
+				</ons-row>
+				<ons-bottom-toolbar>
+					<ons-list ng-controller="NotificationController2">
+
+						<ons-list-item ng-click="alert()" modifier="tappable" class="custom-azul2">
+							Instrucciones
+						</ons-list-item>
+					</ons-list>
+				</ons-bottom-toolbar>
+			</ons-page>
+		</ons-template>
+		<ons-template id="page3.html">
+			<ons-page>
+				<ons-toolbar>
+					<div class="left">
+						<ons-back-button>
+							Atras
+						</ons-back-button>
+					</div>
+					<div class="center">
+						Ticket
+					</div>
+					<div class="right"></div>
+				</ons-toolbar>
+				<p style="text-align: center">
+					<ons-button class="custom-azul" modifier="light" ng-click="app.navi.popPage('page3.html');">
+						Inicio
+					</ons-button>
+				</p>
+				<div ng-controller="unoController">
+					<hr>
+					{{saludo}}
+				</div>
+				<div id="ecom"></div>
+			</ons-page>
+		</ons-template>
+		<ons-template id="page4.html">
+			<ons-page>
+				<ons-toolbar>
+					<div class="left">
+						<ons-toolbar-button ng-click="menu.toggle()">
+							<ons-icon icon="ion-navicon custom-icon" size="28px" fixed-width="false"></ons-icon>
+						</ons-toolbar-button>
+					</div>
+
+					<div class="center">
+						Ayuda
+					</div>
+				</ons-toolbar>
+
+				<h3>Crear nuevo ticket</h3>
+				<ons-row>
+					<ons-col align="top">
+						<div class="Demo">
+							1.- Desliza tu dedo de izquierda a derecha de la pantalla para abrir el menu.
+						</div>
+					</ons-col>
+					<ons-col align="center">
+						<div>
+							2.- Elige la opcion llamada "Nuevo".
+						</div>
+					</ons-col>
+					<ons-col align="center">
+						<div class="Demo">
+							3.- Llena el formulario con la descripcion de tu problema.
+						</div>
+					</ons-col>
+					<ons-col align="center">
+						<div class="Demo">
+							4.- Se te enviara una solucion a la brevedad.
+						</div>
+					</ons-col>
+				</ons-row>
+			</ons-page>
+		</ons-template>
+		<ons-template id="page5.html">
+			<ons-page>
+				<ons-toolbar>
+					<div class="left">
+						<ons-toolbar-button ng-click="menu.toggle()">
+							<ons-icon icon="ion-navicon custom-icon" size="28px" fixed-width="false"></ons-icon>
+						</ons-toolbar-button>
+					</div>
+
+					<div class="center">
+						Editar Ticket
+					</div>
+				</ons-toolbar>
+				<ons-modal var="modal">
+					<ons-icon icon="ion-loading-c" spin="true"></ons-icon>
+					<br>
+					<br>
+					Cargando informacion, por favor espere ...
+				</ons-modal>
+
+				<ons-row style="margin-top: 10px;">
+					<ons-col align="center">
+						<div ng-controller="editController">
+							<form method="post" id="formularioC">
+
+								<table class="container">
+
+									<tbody>
+										<tr>
+											<th>ID: </th><th>
+											<input type="text" id="idd" name="pos" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Problema: </th><th>
+											<input type="text" id="problema" name="problema" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Descripcion: </th><th><textarea id="descripcion" name="descripcion" rows="4" cols="20" class="textarea"></textarea></th>
+										</tr>
+										<tr>
+											<th>Autor: </th><th>
+											<input type="text" id="autor" name="autor" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Compania: </th><th>
+											<input type="text" id="compania" name="compania" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Mail: </th><th>
+											<input type="email" id="mail" name="mail" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Telefono </th><th>
+											<input type="tel" id="tel" name="tel" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Tipo: </th>
+											<th>
+											<p>
+												<select id="tipo" name="tipo"></select>
+											</p></th>
+										</tr>
+										<tr>
+											<th>Area: </th>
+											<th>
+											<p>
+												<select id="area" name="area"></select>
+											</p></th>
+										</tr>
+										<tr>
+											<th>Encargado: </th>
+											<th>
+											<p>
+												<select id="encargado" name="encargado"></select>
+											</p></th>
+										</tr>
+										<tr>
+											<th>Estado: </th>
+											<th>
+											<p>
+												<input type="range" class="range" id="porcentaje" name="porcentaje">
+											</p></th>
+										</tr>
+										<tr>
+											<th>Fecha: </th><th>
+											<p>
+												<input type="date" id="datepicker" name="fecha" class="text-input">
+											</p></th>
+										</tr>
+										<tr>
+											<th>solucion: </th><th><textarea id="solucion" name="solucion" rows="4" cols="20" class="textarea"></textarea></th>
+										</tr>
+									</tbody>
+								</table>
+								<ons-button class="custom-azul" modifier="light" ng-click="menu.toggleMenu()">
+									Menu
+								</ons-button>
+								<ons-button class="custom-verde" modifier="light" ng-click="testes2();" ng-controller="sent2">
+									Enviar
+								</ons-button>
+							</form>
+						</div>
+					</ons-col>
+				</ons-row>
+				<ons-bottom-toolbar>
+					<ons-list ng-controller="NotificationController3">
+
+						<ons-list-item ng-click="alert()" modifier="tappable" class="custom-azul2">
+							<div class='center'>
+								Instrucciones
+							</div>
+						</ons-list-item>
+					</ons-list>
+				</ons-bottom-toolbar>
+			</ons-page>
+			</ons-navigator>
+		</ons-template>
+
+		<ons-template id="page6.html">
+			<ons-page>
+				<ons-toolbar>
+					<div class="left">
+						<ons-toolbar-button ng-click="menu.toggle()">
+							<ons-icon icon="ion-navicon custom-icon" size="28px" fixed-width="false"></ons-icon>
+						</ons-toolbar-button>
+					</div>
+					<div class="center">
+						Login
+					</div>
+				</ons-toolbar>
+				<div class="center">
+					<p>
+						<input placeholder="Username" id="username" class="text-input" style="width: 100%;">
+					</p>
+
+					<p>
+						<input type="password" placeholder="Password" id="username" class="text-input" style="width: 100%;">
+					</p>
+				</div>
+				<p>
+					<ons-button modifier="large" ng-click="dialog.hide()">
+						Sign in
+					</ons-button>
+				</p>
+
+			</ons-page>
+		</ons-template>
+		<ons-template id="page7.html">
+			<ons-page>
+				<ons-toolbar>
+					<div class="left">
+						<ons-toolbar-button ng-click="menu.toggle()">
+							<ons-icon icon="ion-navicon custom-icon" size="28px" fixed-width="false"></ons-icon>
+						</ons-toolbar-button>
+					</div>
+				</ons-toolbar>
+				
+				<ons-modal var="modal">
+					<ons-icon icon="cog" spin="true"></ons-icon>
+					<br>
+					<br>
+					Cargando informacion, por favor espere ...
+				</ons-modal>
+				<ons-row>
+						<ons-col align="center">
+				<div ng-controller="regController">
+						<div id="registro">
+							<h1>Registrate para recibir notificaciones Push</h1>
+							<form id="formulario" name="formulario" method="post">
+								<p>
+									<input type="text" id="name" name="name" class="text-input" placeholder="Nombre" required>
+								</p>
+								<p>
+									<input type="text" id="email" name="email" class="text-input" placeholder="Correo" required>
+								</p>
+								<p>
+									<input type="text" name="regId" id="regId" class="text-input" readonly="readonly" placeholder="regId">
+								</p>
+							</form>
+							
+								<ons-button class="custom-verde" modifier="light" ng-click="testes5();" ng-controller="sent5">
+									Registrar
+								</ons-button>
+						</div>
+					</div>
+						</ons-col>
+					</ons-row>
+			</ons-page>
+		</ons-template>
+		<ons-template id="page9.html">
+			<ons-page>
+				<ons-toolbar>
+					<div class="left">
+						<ons-toolbar-button ng-click="menu.toggle()">
+							<ons-icon icon="ion-navicon custom-icon" size="28px" fixed-width="false"></ons-icon>
+						</ons-toolbar-button>
+					</div>
+				</ons-toolbar>
+			</ons-page>
+		</ons-template>
+		<ons-template id="page8.html">
+			<ons-page>
+				<ons-toolbar>
+					<div class="left">
+						<ons-toolbar-button ng-click="menu.toggle()">
+							<ons-icon icon="ion-navicon custom-icon" size="28px" fixed-width="false"></ons-icon>
+						</ons-toolbar-button>
+					</div>
+				</ons-toolbar>
+				<ons-modal var="modal">
+					<ons-icon icon="cog" spin="true"></ons-icon>
+					<br>
+					<br>
+					Cargando informacion, por favor espere ...
+				</ons-modal>
+				<div ng-controller="configController">
+					<ons-row style="margin-top: 10px;">
+						<ons-col align="center">
+							<form method="post" id="formularioD">
+
+								<table class="container">
+
+									<tbody>
+										<tr>
+											<th>Ruta de archivo </th><th>
+											<input type="url" id="ruta" name="ruta" class="text-input">
+											</th>
+										</tr>
+										<tr>
+											<th>Idioma: </th>
+											<th>
+											<p>
+												<select id="idioma" name="idioma">
+													<option selected value="en">English</option>
+													<option value="es">Spanish</option>
+												</select>
+											</p></th>
+										</tr>
+									</tbody>
+								</table>
+								<ons-button class="custom-azul" modifier="light" ng-click="menu.toggleMenu()">
+									Menu
+								</ons-button>
+								<ons-button class="custom-verde" modifier="light" ng-click="testes3();" ng-controller="sent3">
+									Enviar
+								</ons-button>
+								<ons-button class="custom-azul" modifier="light" ng-click="testes4()" ng-controller="sent4">
+									Default
+								</ons-button>
+							</form>
+						</ons-col>
+					</ons-row>
+				</div>
+				<ons-bottom-toolbar>
+					<ons-list ng-controller="NotificationController4">
+
+						<ons-list-item ng-click="alert()" modifier="tappable" class="custom-azul2">
+							Instrucciones
+						</ons-list-item>
+					</ons-list>
+				</ons-bottom-toolbar>
+
+			</ons-page>
+		</ons-template>
+	</body>
+</html>

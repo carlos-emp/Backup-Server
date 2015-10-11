@@ -1,0 +1,1 @@
+<?php shell_exec('nohup php /home/rockanalex/bin/chat-server.php 2>&1 > /dev/null &');?>

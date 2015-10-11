@@ -1,0 +1,16 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<form action="subir.php" method="post" enctype="multipart/form-data">
+			<input type="file" name="archivo" id="archivo"></input>
+			<input type="submit" value="Subir archivo"></input>
+		</form>
+		<br>
+		<form action="lista.php" method="post">
+		<label style="color:#007FFF">Busca tu factura de cualquiera de las siguientes maneras:<br> -Escribiendo tu RFC a 13 digitos<br>-Escribiendo el folio de tu factura<br>-Con la fecha AAAA/MM/DD</label><br>
+			<input name="rfc" type="text"></input>
+			<input type="submit" value="buscar"></input>
+		</form>
+	</body>
+</html>
